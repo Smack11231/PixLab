@@ -154,6 +154,47 @@ public class Picture extends SimplePicture {
 			}
 		}
 	}
+	public void mirrorHorizontalBotToTop() {
+		Pixel[][] pixels = this.getPixels2D();
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		int width = pixels[0].length;
+		for (int row = pixels.length-1; row > pixels.length/2; row--) {
+			for (int col = 0; col < width; col++) {
+				leftPixel = pixels[row][col];
+				rightPixel = pixels[pixels.length-1-row][col];
+				rightPixel.setColor(leftPixel.getColor());
+			}
+		}
+	}
+	public void mirrorHorizontal() {
+		Pixel[][] pixels = this.getPixels2D();
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		int width = pixels[0].length;
+		for (int row = 0; row < pixels.length/2; row++) {
+			for (int col = 0; col < width; col++) {
+				leftPixel = pixels[row][col];
+				rightPixel = pixels[pixels.length-1-row][col];
+				rightPixel.setColor(leftPixel.getColor());
+			}
+		}
+	}
+	public void mirrorDiagonal() {
+		Pixel[][] pixels = this.getPixels2D();
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		int i = 0;
+		int width = pixels[0].length;
+		for (int row = 0; row < pixels.length/2-1; row++) {
+			for (int col = 0; col < width/2; col++) {
+				leftPixel = pixels[row][col+i];
+				rightPixel = pixels[row][width-1-col-i];
+				rightPixel.setColor(leftPixel.getColor());
+				i++;
+			}
+		}
+	}
 
 	public void mirrorRightToLeft() {
 		Pixel[][] pixels = this.getPixels2D();
