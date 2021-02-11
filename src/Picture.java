@@ -301,6 +301,31 @@ public class Picture extends SimplePicture {
 			}
 		}
 	}
+	public void copyBound(Picture fromPic, int startRow, int endRow, int startCol, int endCol) {
+		Pixel fromPixel = null;
+		Pixel toPixel = null;
+		Pixel[][] toPixels = this.getPixels2D();
+		Pixel[][] fromPixels = fromPic.getPixels2D();
+		for (int fromRow = 0, toRow = startRow; fromRow < fromPixels.length
+				&& toRow < endRow; fromRow++, toRow++) {
+			for (int fromCol = 0, toCol = startCol; fromCol < fromPixels[0].length
+					&& toCol < endCol; fromCol++, toCol++) {
+				fromPixel = fromPixels[fromRow][fromCol];
+				toPixel = toPixels[toRow][toCol];
+				toPixel.setColor(fromPixel.getColor());
+			}
+		}
+	}
+
+	public void myCollage(){
+		Picture gull = new Picture("seagull.jpg");
+		Picture ocean = new Picture("beach.jpg");
+		this.copyBound(ocean, 285, 545 , 84, 430);
+		ocean.mirrorDiagonal();
+		this.copy(ocean, 0, 0);
+		this.copyBound(gull, 0, 300, 200, 500);
+
+	}
 
 	/** Method to create a collage of several pictures */
 	public void createCollage() {
@@ -317,6 +342,7 @@ public class Picture extends SimplePicture {
 		this.mirrorVertical();
 		this.write("collage.jpg");
 	}
+	
 
 	/**
 	 * Method to show large changes in color
